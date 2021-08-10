@@ -14,13 +14,13 @@ classDiagram
         </?>
     }
 </@>
-<?.relationships>
-<@relationships: $relation>
-<&HTML($relation)>
-</@>
-</?>
 <?.inheritance>
 <@inheritance: $inherit>
 <&HTML($inherit)>
+</@>
+</?>
+<?.relationships>
+<@relationships: $relation>
+<&HTML($relation)>
 </@>
 </?>

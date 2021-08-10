@@ -10,8 +10,16 @@ method save(%classes) {
         die "Could not find file template: ClassDiagram.crotmp";
     }
 
-    say %classes.keys.elems;
-    dd %classes;
-    my $file_content = render-template($file_template, %classes);
+    my %classes-to-save;
+    %classes-to-save<classes> = %classes<classes>;
+
+    for %classes<inheritance>.flat -> $inherit {
+        %classes-to-save<inheritance>.push: "{$inherit.value} <|-- {$inherit.key}";
+    }
+    for %classes<relationships>.flat -> $relation {
+        %classes-to-save<relationships>.push: "{$relation.key} --o {$relation.value.Str.subst("::", '_', :g)} : Aggregation";
+    }
+
+    my $file_content = render-template($file_template, %classes-to-save);
     $!file-path.spurt($file_content);
 }

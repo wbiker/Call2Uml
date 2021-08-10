@@ -17,32 +17,33 @@ method get-relations(@classes, $class-names) {
     my @class-with-types = @classes.grep({ $_<attributes>.grep({$_<type>.Bool && $class-names{$_<type>.subst("::", '_', :g)}}) });
     return [] unless @class-with-types.elems > 0;
 
-    my @relationships;
+    my %relationships;
     for @class-with-types -> $class {
         my $class-name = $class<definition><name>;
 
         for $class<attributes>.flat -> $attribute {
             next unless $class-names{$attribute<type>.subst("::", '_', :g)};
 
-            @relationships.push: "$class-name o-- {$attribute<type>.subst("::", '_', :g)} : Aggregation";
+            %relationships{$class-name}.push: $attribute<type>;
         }
     }
 
-    return @relationships;
+    return %relationships;
 }
 
 method get-inheritance(@classes, $class-names) {
     return [] unless @classes.grep(*<definition><inheritance>.elems > 0);
 
-    my @inheritances;
+    my %inheritances;
     my @classes-with-inheritance = @classes.grep({$_<definition><inheritance>.elems > 0});
     for @classes-with-inheritance -> $class {
+        my $class-name = $class<definition><name>;
         for $class<definition><inheritance>.flat -> $inherit {
             if $class-names{$inherit} {
-                @inheritances.push: "{$class<definition><name>} --|> $inherit";
+                %inheritances{$class-name}.push: $inherit;
             }
         }
     }
 
-    return @inheritances;
+    return %inheritances;
 }
