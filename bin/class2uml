@@ -1,0 +1,59 @@
+#!/usr/bin/env raku
+use Cro::WebApp::Template;
+use lib './lib';
+
+use Class2Uml;
+use Exporter::Pod;
+use RelationshipBuilder;
+
+my $class2uml = Class2Uml.new;
+my $exporter = Exporter::Pod.new(file-path => '/home/wolf/tmp/class.pod'.IO);
+my RelationshipBuilder $relationshipBuilder .= new;
+
+multi sub MAIN($path) {
+    my $item_path = $path.IO;
+
+    if $item_path.d {
+        my @classes = search-classes($item_path);
+
+        my @classes_data;
+        for @classes -> $class {
+            try {
+                @classes_data.push: $class2uml.parse($class);
+
+                CATCH { default { $_.message }}
+            }
+        }
+
+        my %classes;
+        %classes<classes> = @classes_data;
+        %classes = $relationshipBuilder.get-relationships(%classes);
+
+        if @classes_data.elems > 0 {
+            $exporter.save(%classes);
+        }
+    }
+
+    if $item_path.f {
+        my %data = $class2uml.parse($item_path);
+        $exporter.save([%data,]);
+    }
+}
+
+sub search-classes($dir) {
+    my @classes;
+    for $dir.dir -> $item {
+        if $item.d {
+            @classes.append: search-classes($item);
+            next;
+        }
+
+        if $item.f {
+            if $item.extension eq any('pm6', 'rakumod') {
+                @classes.push: $item;
+            }
+        }
+    }
+
+    return @classes;
+}

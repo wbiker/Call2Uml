@@ -1,0 +1,38 @@
+ digraph G {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+        shape = "record"
+    ]
+
+    edge [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+    ]
+
+    MeinAtikon [
+         label = "{MeinAtikon|$.view\l$.renderer\l$.atikon_api\l$.otrs_api\l$.webcontent_api\l$.database\l%.config\l|routes()\lauthentication()\lprivacy-policy()\ldashboard()\lonboarding()\linformation()\ldomain()\lcontacts()\lproducts()\lwebcontent()\ltracki    ng()\lstatic()\lget-information-business-logic()}"
+    ]
+
+    MeinAtikon_BusinessLogic_Dashboard [
+        label="{MeinAtikon_BusinessLogic_Dashboard|$.cms_url: Str\l$.onlinetools_url: Str\l|get-panel-data()\lget-newsletter-panel-data()\lget-some-panel-data()\lget-homepage-panel-data()\lget-checklist-name()\lget-checklist-entries()\lupdate-checklist-e    ntry()\lconfetti-shown()\l}"
+    ]
+
+    MeinAtikon_BusinessLogic_Dashboard_Socialmedia [
+        label="{MeinAtikon_BusinessLogic_Dashboard_Socialmedia||get-status-data()\lscreenshots()\lmodel-letter()\l}"
+    ]
+
+    MeinAtikon_BusinessLogic_Dashboard_Homepage [
+        label="{MeinAtikon_BusinessLogic_Dashboard_Homepage|$.cms_url: Str\l$.webcontent_api:\lMeinAtikon::Model::WebcontentAPI\l|get-website-uri()\lget-statistic-uri()\lget-homepage-change-uri()\lget-eigenwartung-uri()\lget-documentation-uri()\l}"
+    ]
+
+    edge [
+        arrowhead = "empty"
+    ]
+
+    MeinAtikon_BusinessLogic_Dashboard_Homepage -> MeinAtikon_BusinessLogic_Dashboard
+    MeinAtikon_BusinessLogic_Dashboard_Socialmedia -> MeinAtikon_BusinessLogic_Dashboard
+ }

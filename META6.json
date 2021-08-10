@@ -1,0 +1,25 @@
+{
+  "name": "Class2Uml",
+  "description": "Write me!",
+  "version": "0.1",
+  "perl": "6.*",
+  "authors": [
+    "Write me!"
+  ],
+  "auth": "Write me!",
+  "depends": [
+    "Cro::WebApp",
+    "File::Temp"
+  ],
+  "build-depends": [],
+  "test-depends": [],
+  "provides": {
+    "Class2Uml": "lib/Class2Uml.pm6",
+    "Exporter::Pod": "lib/Exporter/Pod.pm6",
+    "Grammar::Class": "lib/Grammar/Class.pm6",
+    "RelationshipBuilder": "lib/RelationshipBuilder.pm6"
+  },
+  "resources": ["ClassDiagram.crotmp"],
+  "license": "Write me!",
+  "source-url": "Write me!"
+}

@@ -1,0 +1,26 @@
+=Diagram
+classDiagram
+<@classes: $class>
+    class <$class.definition.name> {
+        <?$class.attributes>
+        <@$class.attributes>
+        <.attribute><?.type>: <.type></?>
+        </@>
+        </?>
+        <?$class.methods>
+        <@$class.methods>
+        <$_>()
+        </@>
+        </?>
+    }
+</@>
+<?.relationships>
+<@relationships: $relation>
+<&HTML($relation)>
+</@>
+</?>
+<?.inheritance>
+<@inheritance: $inherit>
+<&HTML($inherit)>
+</@>
+</?>
