@@ -3,7 +3,7 @@ unit class RelationshipBuilder;
 method get-relationships(%classes) {
     my @classes-to-scan := %classes<classes>;
 
-    my $class-names = @classes-to-scan.map(*<definition><name>).flat.Set;
+    my $class-names = @classes-to-scan.map(*<name>).flat.Set;
 
     my @relations = self.get-relations(@classes-to-scan, $class-names);
     my @inheritance = self.get-inheritance(@classes-to-scan, $class-names);
@@ -13,13 +13,13 @@ method get-relationships(%classes) {
     return %classes;
 }
 
-method get-relations(@classes, $class-names) {
+method get-relations(@classes, Set $class-names) {
     my @class-with-types = @classes.grep({ $_<attributes>.grep({$_<type>.Bool && $class-names{$_<type>}}) });
     return [] unless @class-with-types.elems > 0;
 
     my %relationships;
     for @class-with-types -> $class {
-        my $class-name = $class<definition><name>;
+        my $class-name = $class<name>;
 
         for $class<attributes>.flat -> $attribute {
             next unless $class-names{$attribute<type>};
@@ -31,14 +31,14 @@ method get-relations(@classes, $class-names) {
     return %relationships;
 }
 
-method get-inheritance(@classes, $class-names) {
-    return [] unless @classes.grep(*<definition><inheritance>.elems > 0);
+method get-inheritance(@classes, Set $class-names) {
+    return [] unless @classes.grep(*<inheritance>.elems > 0);
 
     my %inheritances;
-    my @classes-with-inheritance = @classes.grep({$_<definition><inheritance>.elems > 0});
+    my @classes-with-inheritance = @classes.grep({$_<inheritance>.elems > 0});
     for @classes-with-inheritance -> $class {
-        my $class-name = $class<definition><name>;
-        for $class<definition><inheritance>.flat -> $inherit {
+        my $class-name = $class<name>;
+        for $class<inheritance>.flat -> $inherit {
             if $class-names{$inherit} {
                 %inheritances{$class-name}.push: $inherit;
             }

@@ -1,7 +1,7 @@
 =Diagram
 classDiagram
 <@classes: $class>
-    class <$class.definition.name> {
+    class <$class.name> {
         <?$class.attributes>
         <@$class.attributes>
         <.attribute><?.type>: <.type></?>

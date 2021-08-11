@@ -8,12 +8,12 @@ method parse(IO::Path $file) {
     my $file_content = $file.slurp;
 
     my $class_data = Grammar::ClassName.parse($file_content, :actions(Action::ClassName.new)).made;
-    unless $class_data {
+    without $class_data {
        die "Could not find name in file '$file'";
     }
 
     my %file_data;
-    %file_data<definition> = $class_data;
+    %file_data.append($class_data.Hash);
 
     for $file_content.split("\n") -> $line {
         %file_data = self.parse-string(%file_data, $line);

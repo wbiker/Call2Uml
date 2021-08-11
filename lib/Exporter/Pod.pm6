@@ -11,20 +11,27 @@ method save(%classes) {
     }
 
     my %classes-to-save;
-
-    for %classes<classes>.flat -> $class {
-        $class<definition><name> = $class<definition><name>.subst("::", '_', :g);
-        for $class<attributes>.flat -> $attribute {
-            $attribute<type> = $attribute<type>.subst("::", '_', :g) if $attribute<type>;
-        }
-        %classes-to-save<classes>.push: $class;
-    }
-
-    %classes-to-save<inheritance>  = self.get-inheritance(%classes);
+    %classes-to-save<classes>       = self.get-classes(%classes);
+    %classes-to-save<inheritance>   = self.get-inheritance(%classes);
     %classes-to-save<relationships> = self.get-relations(%classes);
 
     my $file_content = render-template($file_template, %classes-to-save);
     $!file-path.spurt($file_content);
+}
+
+method get-classes(%classes) {
+    return [] unless %classes<classes>:exists;
+
+    my @classes;
+    for %classes<classes>.flat -> $class {
+        $class<name> = $class<name>.subst("::", '_', :g);
+        for $class<attributes>.flat -> $attribute {
+            $attribute<type> = $attribute<type>.subst("::", '_', :g) if $attribute<type>;
+        }
+        @classes.push: $class;
+    }
+
+    return @classes;
 }
 
 method get-inheritance(%classes --> Array) {

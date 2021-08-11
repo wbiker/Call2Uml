@@ -11,9 +11,20 @@ method save(%classes) {
     }
 
     my %classes-to-save;
+    %classes-to-save<classes>      = self.get-classes(%classes);
+    %classes-to-save<inheritances> = self.get-inheritance(%classes);
+    %classes-to-save<relations>    = self.get-relations(%classes);
 
+    my $file_content = render-template($file_template, %classes-to-save);
+    $!file-path.spurt($file_content);
+}
+
+method get-classes(%classes) {
+    return [] unless %classes<classes>:exists;
+
+    my @classes;
     for %classes<classes>.flat -> $class {
-        my $label = "$class<definition><name>|";
+        my $label = "$class<name>|";
         if $class<attributes>:exists {
             for $class<attributes>.flat -> $attribute {
                 $label ~= $attribute<attribute>;
@@ -25,14 +36,11 @@ method save(%classes) {
         for $class<methods>.flat -> $method {
             $label ~= "{$method}()\\l";
         }
-        %classes-to-save<classes>.push: {name => $class<definition><name>.subst("::", '_', :g), :$label};
+
+        @classes.push: {name => $class<name>.subst("::", '_', :g), :$label};
     }
 
-    %classes-to-save<inheritances> = self.get-inheritance(%classes);
-    %classes-to-save<relations> = self.get-relations(%classes);
-
-    my $file_content = render-template($file_template, %classes-to-save);
-    $!file-path.spurt($file_content);
+    return @classes;
 }
 
 method get-inheritance(%classes --> Array) {
@@ -51,7 +59,6 @@ method get-relations(%classes --> Array) {
 
     my @relations;
     for %classes<relationships>.flat -> $relation {
-        dd $relation;
         @relations.push: "{$relation.value.subst("::", '_', :g)} -> {$relation.key.Str.subst("::", '_', :g)} [dir=back]";
     }
 
