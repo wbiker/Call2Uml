@@ -4,10 +4,12 @@ use lib './lib';
 
 use Class2Uml;
 use Exporter::Pod;
+use Exporter::Graphviz;
 use RelationshipBuilder;
 
 my $class2uml = Class2Uml.new;
-my $exporter = Exporter::Pod.new(file-path => '/home/wolf/tmp/class.pod'.IO);
+#my $exporter = Exporter::Pod.new(file-path => '/home/wolf/tmp/class.pod'.IO);
+my $exporter = Exporter::Graphviz.new(file-path => '/home/wolf/tmp/class.dot'.IO);
 my RelationshipBuilder $relationshipBuilder .= new;
 
 multi sub MAIN($path) {
