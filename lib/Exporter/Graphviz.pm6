@@ -35,7 +35,7 @@ method save(%classes) {
     $!file-path.spurt($file_content);
 }
 
-method get-inheritance(%classes) {
+method get-inheritance(%classes --> Array) {
     return [] unless %classes<inheritance>:exists;
 
     my @inheritance;
@@ -46,7 +46,7 @@ method get-inheritance(%classes) {
     return @inheritance;
 }
 
-method get-relations(%classes) {
+method get-relations(%classes --> Array) {
     return [] unless %classes<relationships>:exists;
 
     my @relations;

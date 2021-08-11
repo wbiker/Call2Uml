@@ -19,13 +19,32 @@ method save(%classes) {
         }
         %classes-to-save<classes>.push: $class;
     }
-    for %classes<inheritance>.flat -> $inherit {
-        %classes-to-save<inheritance>.push: "{$inherit.value.subst("::", '_', :g)} <|-- {$inherit.key.subst("::", '_', :g)}";
-    }
-    for %classes<relationships>.flat -> $relation {
-        %classes-to-save<relationships>.push: "{$relation.key.subst("::", '_', :g)} --o {$relation.value.Str.subst("::", '_', :g)} : Aggregation";
-    }
+
+    %classes-to-save<inheritance>  = self.get-inheritance(%classes);
+    %classes-to-save<relationships> = self.get-relations(%classes);
 
     my $file_content = render-template($file_template, %classes-to-save);
     $!file-path.spurt($file_content);
+}
+
+method get-inheritance(%classes --> Array) {
+    return [] unless %classes<inheritance>:exists;
+
+    my @inheritances;
+    for %classes<inheritance>.flat -> $inherit {
+        @inheritances.push: "{$inherit.value.subst("::", '_', :g)} <|-- {$inherit.key.subst("::", '_', :g)}";
+    }
+
+    return @inheritances;
+}
+
+method get-relations(%classes --> Array) {
+    return [] unless %classes<relationships>:exists;
+
+    my @relations;
+    for %classes<relationships>.flat -> $relation {
+        @relations.push: "{$relation.key.subst("::", '_', :g)} --o {$relation.value.Str.subst("::", '_', :g)} : Aggregation";
+    }
+
+    return @relations;
 }
