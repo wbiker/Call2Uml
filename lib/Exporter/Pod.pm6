@@ -11,13 +11,19 @@ method save(%classes) {
     }
 
     my %classes-to-save;
-    %classes-to-save<classes> = %classes<classes>;
 
+    for %classes<classes>.flat -> $class {
+        $class<definition><name> = $class<definition><name>.subst("::", '_', :g);
+        for $class<attributes>.flat -> $attribute {
+            $attribute<type> = $attribute<type>.subst("::", '_', :g) if $attribute<type>;
+        }
+        %classes-to-save<classes>.push: $class;
+    }
     for %classes<inheritance>.flat -> $inherit {
-        %classes-to-save<inheritance>.push: "{$inherit.value} <|-- {$inherit.key}";
+        %classes-to-save<inheritance>.push: "{$inherit.value.subst("::", '_', :g)} <|-- {$inherit.key.subst("::", '_', :g)}";
     }
     for %classes<relationships>.flat -> $relation {
-        %classes-to-save<relationships>.push: "{$relation.key} --o {$relation.value.Str.subst("::", '_', :g)} : Aggregation";
+        %classes-to-save<relationships>.push: "{$relation.key.subst("::", '_', :g)} --o {$relation.value.Str.subst("::", '_', :g)} : Aggregation";
     }
 
     my $file_content = render-template($file_template, %classes-to-save);

@@ -14,7 +14,7 @@ method get-relationships(%classes) {
 }
 
 method get-relations(@classes, $class-names) {
-    my @class-with-types = @classes.grep({ $_<attributes>.grep({$_<type>.Bool && $class-names{$_<type>.subst("::", '_', :g)}}) });
+    my @class-with-types = @classes.grep({ $_<attributes>.grep({$_<type>.Bool && $class-names{$_<type>}}) });
     return [] unless @class-with-types.elems > 0;
 
     my %relationships;
@@ -22,7 +22,7 @@ method get-relations(@classes, $class-names) {
         my $class-name = $class<definition><name>;
 
         for $class<attributes>.flat -> $attribute {
-            next unless $class-names{$attribute<type>.subst("::", '_', :g)};
+            next unless $class-names{$attribute<type>};
 
             %relationships{$class-name}.push: $attribute<type>;
         }

@@ -18,15 +18,15 @@ class Action::ClassName {
     }
 
     method name($/) {
-        make $/.Str.subst("::", '_', :g).trim;
+        make $/.Str.trim;
     }
 
     method inheritance($/) {
-        make $<name>.Str.subst("::", '_', :g).trim;
+        make $<name>.Str.trim;
     }
 
     method implement($/) {
-        make $<name>.Str.subst("::", '_', :g).trim;
+        make $<name>.Str.trim;
     }
 }
 
