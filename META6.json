@@ -1,10 +1,10 @@
 {
   "name": "Class2Uml",
-  "description": "Write me!",
+  "description": "Create UML diagrams from Raku classes",
   "version": "0.1",
   "perl": "6.*",
   "authors": [
-    "Write me!"
+    "wbiker@gmx.at"
   ],
   "auth": "Write me!",
   "depends": [
@@ -21,6 +21,6 @@
     "RelationshipBuilder": "lib/RelationshipBuilder.pm6"
   },
   "resources": ["ClassDiagram.crotmp", "GraphvizDiagram.crotmp"],
-  "license": "Write me!",
-  "source-url": "Write me!"
+  "license": "Artistic-2.0",
+  "source-url": "https://github.com/wbiker/Call2Uml"
 }
