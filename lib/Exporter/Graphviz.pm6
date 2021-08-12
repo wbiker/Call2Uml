@@ -33,8 +33,10 @@ method get-classes(%classes) {
             }
         }
         $label ~= '|';
-        for $class<methods>.flat -> $method {
-            $label ~= "{$method}()\\l";
+        if $class<methods>:exists {
+            for $class<methods>.flat -> $method {
+                $label ~= "{ $method }()\\l";
+            }
         }
 
         @classes.push: {name => $class<name>.subst("::", '_', :g), :$label};
