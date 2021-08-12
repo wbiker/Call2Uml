@@ -5,9 +5,9 @@ unit class Exporter::Graphviz;
 has IO::Path $.file-path is rw;
 
 method save(%classes) {
-    my $file_template = %?RESOURCES<GraphizDiagram.crotmp>.IO;
+    my $file_template = %?RESOURCES<GraphvizDiagram.crotmp>.IO;
     if not $file_template {
-        die "Could not find file template: GraphizDiagram.crotmp";
+        die "Could not find file template: GraphvizDiagram.crotmp";
     }
 
     my %classes-to-save;

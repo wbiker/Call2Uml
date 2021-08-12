@@ -16,10 +16,11 @@
   "provides": {
     "Class2Uml": "lib/Class2Uml.pm6",
     "Exporter::Pod": "lib/Exporter/Pod.pm6",
+    "Exporter::Graphviz": "lib/Exporter/Graphviz.pm6",
     "Grammar::Class": "lib/Grammar/Class.pm6",
     "RelationshipBuilder": "lib/RelationshipBuilder.pm6"
   },
-  "resources": ["ClassDiagram.crotmp"],
+  "resources": ["ClassDiagram.crotmp", "GraphvizDiagram.crotmp"],
   "license": "Write me!",
   "source-url": "Write me!"
 }
