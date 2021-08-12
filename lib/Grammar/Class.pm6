@@ -30,12 +30,29 @@ class Action::ClassName {
     }
 }
 
-grammar Grammar::Attributes {
-    regex TOP { .*? <attribute>* .* }
+grammar Grammar::Dependencies {
+    regex TOP { <dependency>* }
 
-    token attribute { \n <has> \s+  <name> \s*  }
+    token dependency { .*? <keyword> \s+ <name> <-[\n]>+ \n }
+    token keyword {[ | 'use' | 'need' ] }
+    token name { <-[\s;]>+ }
+}
+
+grammar Grammar::Attributes {
+    regex TOP { <attribute>* }
+
+    token attribute { .*? <has> \s+ <type>? \s* <name> \s* <modifier>? ';' }
     token has {  'has' }
-    token type { <-[\s]>+ }
+    token type { <-[\s $ @ % &]>+ }
     token name { ['$'|'@'|'%'|'&']<-[;\s]>+ }
     token modifier { <-[;]>+ }
+}
+
+class Action::Attributes {
+    method TOP($/) { make $<attribute>>>.made.flat.Array }
+
+    method attribute($/) { make { name => $<name>.made, type => ($<type>.made ?? $<type>.made !! ''), modifier => ($<modifier>.made ?? $<modifier>.made !! '')} }
+    method type($/) { make ~$/ }
+    method name($/) { make ~$/ }
+    method modifier($/) { make ~$/ }
 }
