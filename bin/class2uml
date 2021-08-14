@@ -11,7 +11,7 @@ use RakuClass;
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes.dot') {
+multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes') {
     my $item_path = $path.IO;
     my $exporter = get-exporter($export, $file);
 
@@ -75,8 +75,8 @@ sub get-exporter($type, $file) {
         }
         $exporter = Exporter::Graphviz.new(file-path => $file_path.IO);
     } else {
-        unless $file_path.basename.ends-with('.pot') {
-            $file_path = $file.IO.absolute ~ '.pot';
+        unless $file_path.basename.ends-with('.pod') {
+            $file_path = $file.IO.absolute ~ '.pod';
         }
         $exporter = Exporter::Pod.new(file-path => $file_path.IO);
     }
