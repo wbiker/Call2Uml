@@ -2,7 +2,7 @@ grammar Grammar::ClassName {
     regex TOP { .*? <unit>? <class_tag> <name> <inheritance>* <implement>* .* }
 
     token unit { 'unit' \s+ }
-    token class_tag { 'class' \s+ }
+    token class_tag { ['class' | 'role'] \s+ }
     token name { <-[\s { ; \n]>+ \s* }
     token inheritance { 'is' \s+ <name> \s* }
     token implement { 'does' \s+ <name> }

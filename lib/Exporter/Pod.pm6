@@ -1,5 +1,7 @@
 use Cro::WebApp::Template;
 
+use RakuClass;
+
 unit class Exporter::Pod;
 
 has IO::Path $.file-path is rw;
@@ -24,10 +26,11 @@ method get-classes(%classes) {
 
     my @classes;
     for %classes<classes>.flat -> $class {
-        $class<name> = $class<name>.subst("::", '_', :g);
-        for $class<attributes>.flat -> $attribute {
-            $attribute<type> = $attribute<type>.subst("::", '_', :g) if $attribute<type>;
-        }
+        $class.name = $class.name.subst("::", '_', :g);
+            for $class.attributes.flat -> $attribute {
+                next unless $attribute;
+                $attribute<type> = $attribute<type>.subst("::", '_', :g) if $attribute<type>;
+            }
         @classes.push: $class;
     }
 
@@ -39,6 +42,7 @@ method get-inheritance(%classes --> Array) {
 
     my @inheritances;
     for %classes<inheritance>.flat -> $inherit {
+        next unless $inherit;
         @inheritances.push: "{$inherit.value.subst("::", '_', :g)} <|-- {$inherit.key.subst("::", '_', :g)}";
     }
 

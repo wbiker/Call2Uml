@@ -3,10 +3,11 @@ use File::Temp;
 use lib './lib';
 
 use Exporter::Pod;
+use RakuClass;
 
 my %classes =
     classes => [
-        {name => 'class::name'},
+        RakuClass.new(name => 'class::name'),
     ]
 ;
 
@@ -23,7 +24,7 @@ subtest 'get-classes', {
         my $cut = Exporter::Pod.new(file-path => $temp-file.IO);
 
         my @actual = $cut.get-classes(%classes);
-        is-deeply @actual, [{ name => 'class_name' },], ':: are replaced Class Name';
+        is-deeply @actual, [RakuClass.new(name => 'class_name')], ':: are replaced Class Name';
     }
     {
         my ($temp-file) = tempfile;
