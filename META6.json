@@ -1,9 +1,10 @@
 {
+  "name": "Class2Uml",
+  "version": "0.1",
+  "perl": "6.*",
   "auth": "Write me!",
   "authors": [
     "wbiker@gmx.at"
-  ],
-  "build-depends": [
   ],
   "depends": [
     "Cro::WebApp",
@@ -11,13 +12,12 @@
   ],
   "description": "Create UML diagrams from Raku classes",
   "license": "Artistic-2.0",
-  "name": "Class2Uml",
-  "perl": "6.*",
   "provides": {
     "Class2Uml": "lib/Class2Uml.pm6",
     "Exporter::Graphviz": "lib/Exporter/Graphviz.pm6",
     "Exporter::Pod": "lib/Exporter/Pod.pm6",
     "Grammar::Class": "lib/Grammar/Class.pm6",
+    "RakuClass": "lib/RakuClass.pm6",
     "RelationshipBuilder": "lib/RelationshipBuilder.pm6"
   },
   "resources": [
