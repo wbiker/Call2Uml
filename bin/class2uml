@@ -37,8 +37,10 @@ multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$fil
     }
 
     if $item_path.f {
-        my %data = $class2uml.parse($item_path);
-        $exporter.save(%data);
+        my $data = $class2uml.parse($item_path);
+        my %classes;
+        %classes<classes> = [$data];
+        $exporter.save(%classes);
     }
 }
 
