@@ -30,11 +30,10 @@ subtest 'get-classes', {
         my ($temp-file) = tempfile;
         my $cut = Exporter::Pod.new(file-path => $temp-file.IO);
 
-        %classes<classes>[0]<attributes>.push: { type => 'Name::Space::ClassName', };
+        %classes<classes>[0].attributes.push: { type => 'Name::Space::ClassName', };
 
         my @actual = $cut.get-classes(%classes);
-        is-deeply @actual, [{ name => 'class_name', attributes => [{ type => 'Name_Space_ClassName' },] },],
-        ':: are replaced Attribute Type';
+        is-deeply @actual[0].attributes, [{type => 'Name_Space_ClassName'},], ':: are replaced Attribute Type';
     }
 }
 
