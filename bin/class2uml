@@ -6,6 +6,7 @@ use Class2Uml;
 use Exporter::Pod;
 use Exporter::Graphviz;
 use RelationshipBuilder;
+use RakuClass;
 
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
@@ -22,7 +23,7 @@ multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$fil
             try {
                 @classes_data.push: $class2uml.parse($class);
 
-                CATCH { default { $_.message }}
+                CATCH { default { say $_.message }}
             }
         }
 
@@ -37,7 +38,7 @@ multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$fil
 
     if $item_path.f {
         my %data = $class2uml.parse($item_path);
-        $exporter.save([%data,]);
+        $exporter.save(%data);
     }
 }
 

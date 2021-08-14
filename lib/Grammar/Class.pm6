@@ -49,10 +49,24 @@ grammar Grammar::Attributes {
 }
 
 class Action::Attributes {
-    method TOP($/) { make $<attribute>>>.made.flat.Array }
+    method TOP($/) { make $<attribute>.map(*.made).Array  }
 
-    method attribute($/) { make { name => $<name>.made, type => ($<type>.made ?? $<type>.made !! ''), modifier => ($<modifier>.made ?? $<modifier>.made !! '')} }
+    method attribute($/) { make %(name => $<name>.made, type => ($<type>.made ?? $<type>.made !! ''), modifier => ($<modifier>.made ?? $<modifier>.made !! '')) }
     method type($/) { make ~$/ }
     method name($/) { make ~$/ }
     method modifier($/) { make ~$/ }
+}
+
+grammar Grammar::Methods {
+    token TOP { <method>* }
+
+    token method { .*? <keyword> <name> .*? }
+    token keyword { 'method' }
+    token name { \s* <-[\s\(\{]>+ }
+}
+
+class Action::Methods {
+    method TOP($/) { make [$<method>>>.made] }
+    method method($/) { make $<name>.made }
+    method name($/) { make $/.Str }
 }

@@ -1,6 +1,7 @@
 use Cro::WebApp::Template;
 
 use Grammar::Class;
+use RakuClass;
 
 unit class Class2Uml;
 
@@ -12,14 +13,18 @@ method parse(IO::Path $file) {
        die "Could not find name in file '$file'";
     }
 
-    my %file_data;
-    %file_data.append($class_data.Hash);
+    my RakuClass $class .= new;
+    $class.name = $class_data<name>;
+    $class.inheritances = $class_data<inheritance>.flat if $class_data<inheritance>:exists;
+    $class.implements = $class_data<implement>.flat if $class_data<implement>:exists;
 
-    for $file_content.split("\n") -> $line {
-        %file_data = self.parse-string(%file_data, $line);
-    }
+    my $attribute_data = Grammar::Attributes.subparse($file_content, :actions(Action::Attributes.new)).made;
+    $class.attributes = $attribute_data.flat if $attribute_data;
 
-    return %file_data;
+    my $outcome = Grammar::Methods.subparse($file_content, :actions(Action::Methods.new)).made;
+    $class.methods = $outcome.flat if $outcome;
+
+    return $class;
 }
 
 method parse-string(%data, Str $line) {

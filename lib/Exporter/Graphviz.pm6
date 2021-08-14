@@ -24,33 +24,35 @@ method get-classes(%classes) {
 
     my @classes;
     for %classes<classes>.flat -> $class {
-        my $label = "$class<name>|";
-        if $class<attributes>:exists {
-            for $class<attributes>.flat -> $attribute {
-                $label ~= $attribute<attribute>;
+        my $label = "{$class.name}|";
+        if $class.attributes {
+            for $class.attributes.flat -> $attribute {
+                $label ~= $attribute<name>;
                 $label ~= " : $attribute<type>" if $attribute<type>;
                 $label ~= "\\l";
             }
         }
         $label ~= '|';
-        if $class<methods>:exists {
-            for $class<methods>.flat -> $method {
+        if $class.methods {
+            for $class.methods.flat -> $method {
                 $label ~= "{ $method }()\\l";
             }
         }
 
-        @classes.push: {name => $class<name>.subst("::", '_', :g), :$label};
+        @classes.push: {name => $class.name.subst("::", '_', :g), :$label};
     }
 
     return @classes;
 }
 
 method get-inheritance(%classes --> Array) {
-    return [] unless %classes<inheritance>:exists;
+    return [] unless %classes<classes>:exists;
 
     my @inheritance;
-    for %classes<inheritance>.flat.sort(*.key) -> $inherit {
-        @inheritance.push: "{$inherit.value.subst("::", '_', :g)} -> {$inherit.key.subst("::", '_', :g)} [dir=back]";
+    for %classes<classes>.flat -> $class {
+        for $class.inheritances.flat -> $inheritance {
+            @inheritance.push: "{ $inheritance.subst("::", '_', :g) } -> { $class.name.subst("::", '_', :g) } [dir=back]";
+        }
     }
 
     return @inheritance;

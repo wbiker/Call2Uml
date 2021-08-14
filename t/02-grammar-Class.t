@@ -6,7 +6,7 @@ use Grammar::Class;
 #my $test_string = '/home/wolf/tmp/raku_class_files/Name/Name.pm6'.IO.slurp;
 #my $test_string = '/home/wolf/tmp/raku_class_files/Name/Space/Dashboard.pm6'.IO.slurp;
 #my $test_string = '/home/wolf/tmp/raku_class_files/Name/Space/Dashboard/Socialmedia.pm6'.IO.slurp;
-my $test_string = '/home/wolf/tmp/raku_class_files/Name/Space/Dashboard/Homepage.pm6'.IO.slurp;
+#my $test_string = '/home/wolf/tmp/raku_class_files/Name/Space/Dashboard/Homepage.pm6'.IO.slurp;
 
 my @class_definitions =
     {test => 'unit class test;',
@@ -66,7 +66,6 @@ for @class_definitions -> $test {
     is-deeply $class_data, $test<expect_data>, $test<test>;
 }
 
-my $actions = Action::ClassName.new;
 {
     my $test = q:to/END/;
     need Name::Model::WebcontentAPI;
@@ -77,7 +76,7 @@ my $actions = Action::ClassName.new;
     has Name::Model::WebcontentAPI $.webcontent_api is required;
     END
 
-    my $outcome = Grammar::ClassName.subparse($test, :$actions);
+    my $outcome = Grammar::ClassName.subparse($test, :actions(Action::ClassName.new));
     my %actual = $outcome.made;
     is-deeply %actual, {implement => [], inheritance => ['Name::Space'],
                         name => 'Name::Space::Dashboard::Homepage'}, 'unit class without newline';
@@ -94,7 +93,7 @@ my $actions = Action::ClassName.new;
     has Name::Model::WebcontentAPI $.webcontent_api is required;
     END
 
-    my $outcome = Grammar::ClassName.parse($test, :$actions);
+    my $outcome = Grammar::ClassName.parse($test, :actions(Action::ClassName.new));
     my %actual = $outcome.made;
     is-deeply %actual, {implement => ['Name::ExeptionHandler'],
                         inheritance => ['Name::Space'], name => 'Name::Space::Dashboard::Homepage'}, 'unit class with newline';
@@ -146,6 +145,28 @@ subtest 'attributes', {
                             {:modifier(''), :name("\$.api"), :type("")},
                             {:modifier(''), :name("\@!array"), :type("")}],
             'expected data structure for attributes without type';
+    }
+    {
+        my $test = q:to/END/;
+        need MeinAtikon::BusinessLogic;
+        need MeinAtikon::Model::WebcontentAPI;
+
+        unit class MeinAtikon::BusinessLogic::Dashboard::Homepage is MeinAtikon::BusinessLogic;
+
+        has Str $.cms_url is required;
+        has MeinAtikon::Model::WebcontentAPI $.webcontent_api is required;
+
+        method get-website-uri(--> Str) {
+            my $domain = $*user.domain // '';
+            return "https://www.{$domain}";
+        }
+        END
+
+        my $outcome = Grammar::Attributes.subparse($test, :actions(Action::Attributes.new));
+        my @actual = $outcome.made;
+            is-deeply @actual, [{:modifier("is required"), :name("\$.cms_url"), :type("Str")},
+                                {:modifier('is required'), :name("\$.webcontent_api"), :type("MeinAtikon::Model::WebcontentAPI")}],
+                'expected data structure for attributes without type';
     }
 }
 
