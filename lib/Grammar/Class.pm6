@@ -34,7 +34,7 @@ grammar Grammar::Dependencies {
     regex TOP { <dependency>* }
 
     token dependency { .*? <keyword> \s+ <name> <-[\n]>+ \n }
-    token keyword {[ | 'use' | 'need' ] }
+    token keyword {[ 'use' | 'need' ] }
     token name { <-[\s;]>+ }
 }
 

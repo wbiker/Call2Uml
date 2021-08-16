@@ -11,37 +11,26 @@ use RakuClass;
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN($path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes') {
-    my $item_path = $path.IO;
+multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes') {
+    my @pathes;
+    for @path -> $item {
+       my $item_path = $item.IO;
+       if $item_path.d {
+           @pathes.append: search-classes($item_path);
+       }
+       elsif $item_path.f {
+           @pathes.push: $item_path;
+       }
+    }
+
+    my %classes;
+    my @class_data = parse-classes(@pathes);
+    return unless @class_data.elems > 0;
+    %classes<classes> = @class_data;
+    %classes = $relationshipBuilder.get-relationships(%classes) unless @pathes.elems == 1;
+
     my $exporter = get-exporter($export, $file);
-
-    if $item_path.d {
-        my @classes = search-classes($item_path);
-
-        my @classes_data;
-        for @classes -> $class {
-            try {
-                @classes_data.push: $class2uml.parse($class);
-
-                CATCH { default { say $_.message }}
-            }
-        }
-
-        my %classes;
-        %classes<classes> = @classes_data;
-        %classes = $relationshipBuilder.get-relationships(%classes);
-
-        if @classes_data.elems > 0 {
-            $exporter.save(%classes);
-        }
-    }
-
-    if $item_path.f {
-        my $data = $class2uml.parse($item_path);
-        my %classes;
-        %classes<classes> = [$data];
-        $exporter.save(%classes);
-    }
+    $exporter.save(%classes);
 }
 
 sub search-classes($dir) {
@@ -60,6 +49,19 @@ sub search-classes($dir) {
     }
 
     return @classes;
+}
+
+sub parse-classes(@classes) {
+    my @classes_data;
+    for @classes -> $class {
+        try {
+            @classes_data.push: $class2uml.parse($class);
+
+            CATCH { default { say $_.message } }
+        }
+    }
+
+    return @classes_data;
 }
 
 sub get-exporter($type, $file) {
