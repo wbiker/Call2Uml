@@ -10,15 +10,25 @@ grammar Grammar::ClassName {
 
 class Action::ClassName {
     method TOP($/) {
+        my $name = $<name>.made;
+
+        if $<class_tag>.Str.trim eq 'role' {
+            $name = 'role ' ~ $name;
+        }
+
         make %(
-            name => $<name>.made,
+            name => $name,
             inheritance => [$<inheritance>>>.made],
             implement => [$<implement>>>.made],
         )
     }
 
     method name($/) {
-        make $/.Str.trim;
+        my $name = $/.Str.trim;
+        $name .= subst('[', '<');
+        $name .= subst(']', '>');
+
+        make $name;
     }
 
     method inheritance($/) {
@@ -62,7 +72,7 @@ grammar Grammar::Methods {
 
     token method { .*? <keyword> <name> .*? }
     token keyword { 'method' }
-    token name { \s* <-[\s\(\{]>+ }
+    token name { \s+ <-[\s\(\{]>+ }
 }
 
 class Action::Methods {

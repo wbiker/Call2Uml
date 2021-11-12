@@ -15,7 +15,7 @@
 
     <?.classes>
     <@classes : $class>
-    <$class.name> [
+    <&HTML($class.name)> [
          label = "{<$class.label>}"
     ]
     </@>
