@@ -14,6 +14,7 @@ method save(%classes) {
     %classes-to-save<classes>      = self.get-classes(%classes);
     %classes-to-save<inheritances> = self.get-inheritance(%classes);
     %classes-to-save<relations>    = self.get-relations(%classes);
+    %classes-to-save<implements>   = self.get-implements(%classes);
 
     my $file_content = render-template($file_template, %classes-to-save);
     $!file-path.spurt($file_content);
@@ -56,6 +57,19 @@ method get-inheritance(%classes --> Array) {
     }
 
     return @inheritance;
+}
+
+method get-implements(%classes --> Array) {
+    return [] unless %classes<classes>:exists;
+
+    my @implements;
+    for %classes<classes>.flat -> $class {
+        for $class.implements.flat -> $implements {
+            @implements.push: "{ $implements.subst("::", '_', :g) } -> { $class.name.subst("::", '_', :g) } [dir=back]";
+        }
+    }
+
+    return @implements;
 }
 
 method get-relations(%classes --> Array) {

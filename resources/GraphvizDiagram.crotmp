@@ -32,7 +32,18 @@
     </?>
 
     edge [
+        style = "dashed"
+    ]
+
+    <?.implements>
+    <@implements : $implement>
+    <&HTML($implement)>
+    </@>
+    </?>
+
+    edge [
         arrowtail = "diamond"
+        style = "solid"
     ]
 
     <?.relations>
@@ -40,4 +51,5 @@
     <&HTML($relation)>
     </@>
     </?>
+
  }

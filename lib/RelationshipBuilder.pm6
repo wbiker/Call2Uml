@@ -7,9 +7,11 @@ method get-relationships(%classes) {
 
     my @relations = self.get-relations(@classes-to-scan, $class-names);
     my @inheritance = self.get-inheritance(@classes-to-scan, $class-names);
+    my @implements = self.get-implements(@classes-to-scan, $class-names);
 
     %classes<relationships> = @relations if @relations.elems > 0;
     %classes<inheritance> = @inheritance if @inheritance.elems > 0;
+    %classes<implements> = @implements if @implements.elems > 0;
     return %classes;
 }
 
@@ -46,4 +48,21 @@ method get-inheritance(@classes, Set $class-names) {
     }
 
     return %inheritances;
+}
+
+method get-implements(@classes, Set $class-names) {
+    return [] unless @classes.grep(*.implements.elems > 0);
+
+    my %implements;
+    my @classes-with-implements = @classes.grep({$_.implements.elems > 0});
+    for @classes-with-implements -> $class {
+        my $class-name = $class.name;
+        for $class.implements.flat -> $implement {
+            if $class-names{$implement} {
+                %implements{$class-name}.push: $implement;
+            }
+        }
+    }
+
+    return %implements;
 }
