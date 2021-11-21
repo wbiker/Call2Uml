@@ -1,4 +1,5 @@
 #!/usr/bin/env raku
+use Logger;
 use Cro::WebApp::Template;
 use lib './lib';
 
@@ -8,10 +9,18 @@ use Exporter::Graphviz;
 use RelationshipBuilder;
 use RakuClass;
 
+my %*SUB-MAIN-OPTS =
+  :named-anywhere,    # allow named parameters after positional ones
+;
+
+my $log = Logger.new;
+Logger.add($log);
+
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes') {
+multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes', Bool :$debug=False) {
+    $log.level = Logger::DEBUG if $debug;
     my @pathes;
     for @path -> $item {
        my $item_path = $item.IO;

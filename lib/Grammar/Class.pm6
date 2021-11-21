@@ -36,9 +36,8 @@ class Action::ClassName {
     }
 
     method implement($/) {
-        my $name = $/.Str.trim;
-        $name .= subst('[', '<');
-        $name .= subst(']', '>');
+        my $name = $<name>.Str.trim;
+        $name .= subst(/'[' <-[\]]>+ ']'/, '');
 
         make $name;
     }

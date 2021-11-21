@@ -1,9 +1,12 @@
+use Logger;
 use Cro::WebApp::Template;
 
 use Grammar::Class;
 use RakuClass;
 
 unit class Class2Uml;
+
+has $log = Logger.get;
 
 method parse(IO::Path $file) {
     my $file_content = $file.slurp(:close);
@@ -23,6 +26,10 @@ method parse(IO::Path $file) {
 
     my $methods = Grammar::Methods.subparse($file_content, :actions(Action::Methods.new)).made;
     $class.methods = $methods.flat if $methods;
+
+    if $log.is-debug {
+        $log.debug($class.raku);
+    }
 
     return $class;
 }

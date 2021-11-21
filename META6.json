@@ -8,7 +8,8 @@
   ],
   "depends": [
     "Cro::WebApp",
-    "File::Temp"
+    "File::Temp",
+    "Logger"
   ],
   "description": "Create UML diagrams from Raku classes",
   "license": "Artistic-2.0",
@@ -28,6 +29,5 @@
   "tags": [
   ],
   "test-depends": [
-  ],
-  "version": "0.1"
+  ]
 }
