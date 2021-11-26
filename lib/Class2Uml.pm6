@@ -20,6 +20,7 @@ method parse(IO::Path $file) {
     $class.name = $class_data<name>;
     $class.inheritances = $class_data<inheritance>.flat if $class_data<inheritance>:exists;
     $class.implements = $class_data<implement>.flat if $class_data<implement>:exists;
+    $class.is-role = $class_data<is-role>;
 
     my $attribute_data = Grammar::Attributes.subparse($file_content, :actions(Action::Attributes.new)).made;
     $class.attributes = $attribute_data.flat if $attribute_data;

@@ -1,13 +1,18 @@
 #!/usr/bin/env raku
 use Logger;
+use Red;
 use Cro::WebApp::Template;
 use lib './lib';
 
 use Class2Uml;
 use Exporter::Pod;
 use Exporter::Graphviz;
+use Exporter::PostgreSQL;
 use RelationshipBuilder;
 use RakuClass;
+
+# my $*RED-DEBUG = True;
+red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
 
 my %*SUB-MAIN-OPTS =
   :named-anywhere,    # allow named parameters after positional ones
@@ -19,7 +24,7 @@ Logger.add($log);
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz'/ = 'graphviz', :$file = './classes', Bool :$debug=False) {
+multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = 'graphviz', :$file = './classes', Bool :$debug=False) {
     $log.level = Logger::DEBUG if $debug;
     my @pathes;
     for @path -> $item {
@@ -85,10 +90,16 @@ sub get-exporter($type, $file) {
             $file_path = $file.IO.absolute ~ '.dot';
         }
         $exporter = Exporter::Graphviz.new(file-path => $file_path.IO);
-    } else {
+    } elsif $type eq 'pod' {
         unless $file_path.basename.ends-with('.pod') {
             $file_path = $file.IO.absolute ~ '.pod';
         }
         $exporter = Exporter::Pod.new(file-path => $file_path.IO);
+    } elsif $type eq 'postgresql' {
+        $exporter = Exporter::PostgreSQL.new;
+    } else {
+        die "No Exporter for '$type' found";
     }
+
+    return $exporter;
 }

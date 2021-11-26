@@ -11,22 +11,23 @@ grammar Grammar::ClassName {
 class Action::ClassName {
     method TOP($/) {
         my $name = $<name>.made;
+        my $is-role = False;
 
         if $<class_tag>.Str.trim eq 'role' {
-            $name = 'role ' ~ $name;
+            $is-role = True;
         }
 
         make %(
             name => $name,
             inheritance => [$<inheritance>>>.made],
             implement => [$<implement>>>.made],
+            is-role => $is-role,
         )
     }
 
     method name($/) {
         my $name = $/.Str.trim;
-        $name .= subst('[', '<');
-        $name .= subst(']', '>');
+        $name .= subst(/ '[' <-[\]]> + ']' /, '');
 
         make $name;
     }
