@@ -1,0 +1,866 @@
+- lang-version: 
+- statementlist: use Test::BaseClass;
+  - statement: 3 matches
+    - statement_control: use Test::BaseClass
+      - sym: use
+      - module_name: Test::BaseClass
+        - longname: Test::BaseClass
+          - colonpair:  isa NQPArray
+          - name: Test::BaseClass
+            - morename: 1 matches
+              - identifier: BaseClass
+            - identifier: Test
+      - doc: 
+    - statement_control: use Test::RoleTestClass
+      - sym: use
+      - module_name: Test::RoleTestClass
+        - longname: Test::RoleTestClass
+          - colonpair:  isa NQPArray
+          - name: Test::RoleTestClass
+            - morename: 1 matches
+              - identifier: RoleTestClass
+            - identifier: Test
+      - doc: 
+    - EXPR: unit class TestClass is Test::BaseClass does Test::RoleTestClass;
+      - scope_declarator: unit class TestClass is Test::BaseClass does Test::RoleTestClass;
+        - sym: unit
+        - scoped:  class TestClass is Test::BaseClass does Test::RoleTestClass;
+          - package_declarator: class TestClass is Test::BaseClass does Test::RoleTestClass;
+            - sym: class
+            - package_def: TestClass is Test::BaseClass does Test::RoleTestClass;
+              - trait: 2 matches
+                - trait_mod: is Test::BaseClass 
+                  - longname: Test::BaseClass
+                    - name: Test::BaseClass
+                      - identifier: Test
+                      - morename: 1 matches
+                        - identifier: BaseClass
+                    - colonpair:  isa NQPArray
+                  - circumfix:  isa NQPArray
+                  - sym: is
+                - trait_mod: does Test::RoleTestClass
+                  - typename: Test::RoleTestClass
+                    - longname: Test::RoleTestClass
+                      - name: Test::RoleTestClass
+                        - morename: 1 matches
+                          - identifier: RoleTestClass
+                        - identifier: Test
+                      - colonpair:  isa NQPArray
+                    - colonpair:  isa NQPArray
+                  - sym: does
+              - longname: TestClass
+                - name: TestClass
+                  - morename:  isa NQPArray
+                  - identifier: TestClass
+                - colonpair:  isa NQPArray
+              - statementlist: 
+                - statement: 9 matches
+                  - EXPR: has $.attribute
+                    - scope_declarator: has $.attribute
+                      - sym: has
+                      - scoped:  $.attribute
+                        - typename:  isa NQPArray
+                        - DECL: $.attribute
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute
+                            - postcircumfix:  isa NQPArray
+                            - variable: $.attribute
+                              - sigil: $
+                              - twigil: .
+                                - sym: .
+                              - desigilname: attribute
+                                - longname: attribute
+                                  - colonpair:  isa NQPArray
+                                  - name: attribute
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute
+                            - trait:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - declarator: $.attribute
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute
+                            - postcircumfix:  isa NQPArray
+                            - variable: $.attribute
+                              - sigil: $
+                              - twigil: .
+                                - sym: .
+                              - desigilname: attribute
+                                - longname: attribute
+                                  - colonpair:  isa NQPArray
+                                  - name: attribute
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute
+                            - trait:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - signature:  isa NQPArray
+                  - EXPR: has Int $.attribute_int
+                    - scope_declarator: has Int $.attribute_int
+                      - scoped:  Int $.attribute_int
+                        - multi_declarator: $.attribute_int
+                          - declarator: $.attribute_int
+                            - trait:  isa NQPArray
+                            - variable_declarator: $.attribute_int
+                              - variable: $.attribute_int
+                                - sigil: $
+                                - desigilname: attribute_int
+                                  - longname: attribute_int
+                                    - name: attribute_int
+                                      - identifier: attribute_int
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                        - DECL: $.attribute_int
+                          - declarator: $.attribute_int
+                            - trait:  isa NQPArray
+                            - variable_declarator: $.attribute_int
+                              - variable: $.attribute_int
+                                - sigil: $
+                                - desigilname: attribute_int
+                                  - longname: attribute_int
+                                    - name: attribute_int
+                                      - identifier: attribute_int
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Int
+                            - colonpair:  isa NQPArray
+                            - name: Int
+                              - morename:  isa NQPArray
+                              - identifier: Int
+                      - sym: has
+                  - EXPR: has $.attribute_rw is rw
+                    - scope_declarator: has $.attribute_rw is rw
+                      - scoped:  $.attribute_rw is rw
+                        - DECL: $.attribute_rw is rw
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute_rw is rw
+                            - postcircumfix:  isa NQPArray
+                            - trait: 1 matches
+                              - trait_mod: is rw
+                                - sym: is
+                                - longname: rw
+                                  - colonpair:  isa NQPArray
+                                  - name: rw
+                                    - morename:  isa NQPArray
+                                    - identifier: rw
+                                - circumfix:  isa NQPArray
+                            - variable: $.attribute_rw
+                              - twigil: .
+                                - sym: .
+                              - sigil: $
+                              - desigilname: attribute_rw
+                                - longname: attribute_rw
+                                  - name: attribute_rw
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute_rw
+                                  - colonpair:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - declarator: $.attribute_rw is rw
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute_rw is rw
+                            - postcircumfix:  isa NQPArray
+                            - trait: 1 matches
+                              - trait_mod: is rw
+                                - sym: is
+                                - longname: rw
+                                  - colonpair:  isa NQPArray
+                                  - name: rw
+                                    - morename:  isa NQPArray
+                                    - identifier: rw
+                                - circumfix:  isa NQPArray
+                            - variable: $.attribute_rw
+                              - twigil: .
+                                - sym: .
+                              - sigil: $
+                              - desigilname: attribute_rw
+                                - longname: attribute_rw
+                                  - name: attribute_rw
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute_rw
+                                  - colonpair:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - typename:  isa NQPArray
+                      - sym: has
+                  - EXPR: has Int $.attribute_type_rw
+                    - scope_declarator: has Int $.attribute_type_rw
+                      - scoped:  Int $.attribute_type_rw
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Int
+                            - name: Int
+                              - identifier: Int
+                              - morename:  isa NQPArray
+                            - colonpair:  isa NQPArray
+                        - DECL: $.attribute_type_rw
+                          - declarator: $.attribute_type_rw
+                            - variable_declarator: $.attribute_type_rw
+                              - signature:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - variable: $.attribute_type_rw
+                                - desigilname: attribute_type_rw
+                                  - longname: attribute_type_rw
+                                    - name: attribute_type_rw
+                                      - morename:  isa NQPArray
+                                      - identifier: attribute_type_rw
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                                - sigil: $
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                            - trait:  isa NQPArray
+                        - multi_declarator: $.attribute_type_rw
+                          - declarator: $.attribute_type_rw
+                            - variable_declarator: $.attribute_type_rw
+                              - signature:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - variable: $.attribute_type_rw
+                                - desigilname: attribute_type_rw
+                                  - longname: attribute_type_rw
+                                    - name: attribute_type_rw
+                                      - morename:  isa NQPArray
+                                      - identifier: attribute_type_rw
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                                - sigil: $
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                            - trait:  isa NQPArray
+                      - sym: has
+                  - EXPR: has Array @.attribute_array
+                    - scope_declarator: has Array @.attribute_array
+                      - sym: has
+                      - scoped:  Array @.attribute_array
+                        - typename: 1 matches
+                          - longname: Array
+                            - name: Array
+                              - identifier: Array
+                              - morename:  isa NQPArray
+                            - colonpair:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                        - multi_declarator: @.attribute_array
+                          - declarator: @.attribute_array
+                            - trait:  isa NQPArray
+                            - variable_declarator: @.attribute_array
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - variable: @.attribute_array
+                                - twigil: .
+                                  - sym: .
+                                - desigilname: attribute_array
+                                  - longname: attribute_array
+                                    - name: attribute_array
+                                      - identifier: attribute_array
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - sigil: @
+                        - DECL: @.attribute_array
+                          - declarator: @.attribute_array
+                            - trait:  isa NQPArray
+                            - variable_declarator: @.attribute_array
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - variable: @.attribute_array
+                                - twigil: .
+                                  - sym: .
+                                - desigilname: attribute_array
+                                  - longname: attribute_array
+                                    - name: attribute_array
+                                      - identifier: attribute_array
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - sigil: @
+                  - EXPR: has Hash %!attribute_hash_ro
+                    - scope_declarator: has Hash %!attribute_hash_ro
+                      - scoped:  Hash %!attribute_hash_ro
+                        - multi_declarator: %!attribute_hash_ro
+                          - declarator: %!attribute_hash_ro
+                            - variable_declarator: %!attribute_hash_ro
+                              - trait:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - variable: %!attribute_hash_ro
+                                - twigil: !
+                                  - sym: !
+                                - sigil: %
+                                - desigilname: attribute_hash_ro
+                                  - longname: attribute_hash_ro
+                                    - name: attribute_hash_ro
+                                      - identifier: attribute_hash_ro
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                            - trait:  isa NQPArray
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Hash
+                            - colonpair:  isa NQPArray
+                            - name: Hash
+                              - morename:  isa NQPArray
+                              - identifier: Hash
+                        - DECL: %!attribute_hash_ro
+                          - declarator: %!attribute_hash_ro
+                            - variable_declarator: %!attribute_hash_ro
+                              - trait:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - variable: %!attribute_hash_ro
+                                - twigil: !
+                                  - sym: !
+                                - sigil: %
+                                - desigilname: attribute_hash_ro
+                                  - longname: attribute_hash_ro
+                                    - name: attribute_hash_ro
+                                      - identifier: attribute_hash_ro
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                            - trait:  isa NQPArray
+                      - sym: has
+                  - EXPR: method normal_method() {}
+
+                    - routine_declarator: method normal_method() {}
+                      - method_def:  normal_method() {}
+                        - longname: normal_method
+                          - colonpair:  isa NQPArray
+                          - name: normal_method
+                            - identifier: normal_method
+                            - morename:  isa NQPArray
+                        - specials: 
+                        - blockoid: {}
+                          - statementlist: 
+                            - statement:  isa NQPArray
+                        - multisig: 
+                          - signature: 
+                            - parameter:  isa NQPArray
+                            - param_sep:  isa NQPArray
+                        - trait:  isa NQPArray
+                      - sym: method
+                  - EXPR: method one_param_method($one) {
+                    - routine_declarator: method one_param_method($one) {
+                      - sym: method
+                      - method_def:  one_param_method($one) {
+                        - multisig: $one
+                          - signature: $one
+                            - param_sep:  isa NQPArray
+                            - parameter: 1 matches
+                              - modifier:  isa NQPArray
+                              - default_value:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - type_constraint:  isa NQPArray
+                              - param_var: $one
+                                - declname: $one
+                                - name: one
+                                - sigil: $
+                              - quant: 
+                        - specials: 
+                        - blockoid: {
+                          - statementlist: 
+                            - statement: 1 matches
+                              - EXPR: say $one
+                                - args:  $one
+                                  - arglist: $one
+                                    - EXPR: $one
+                                      - variable: $one
+                                        - sigil: $
+                                        - desigilname: one
+                                          - longname: one
+                                            - colonpair:  isa NQPArray
+                                            - name: one
+                                              - morename:  isa NQPArray
+                                              - identifier: one
+                                - longname: say
+                                  - colonpair:  isa NQPArray
+                                  - name: say
+                                    - identifier: say
+                                    - morename:  isa NQPArray
+                        - trait:  isa NQPArray
+                        - longname: one_param_method
+                          - name: one_param_method
+                            - identifier: one_param_method
+                            - morename:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                  - EXPR: method hello() {
+                    - routine_declarator: method hello() {
+                      - method_def:  hello() {
+                        - longname: hello
+                          - name: hello
+                            - identifier: hello
+                            - morename:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                        - multisig: 
+                          - signature: 
+                            - parameter:  isa NQPArray
+                            - param_sep:  isa NQPArray
+                        - blockoid: {
+                          - statementlist: 
+                            - statement: 1 matches
+                              - EXPR: say 'hello'
+                                - args:  'hello'
+                                  - arglist: 'hello'
+                                    - EXPR: 'hello'
+                                      - value: 'hello'
+                                        - quote: 'hello'
+                                          - nibble: hello
+                                - longname: say
+                                  - colonpair:  isa NQPArray
+                                  - name: say
+                                    - identifier: say
+                                    - morename:  isa NQPArray
+                        - specials: 
+                        - trait:  isa NQPArray
+                      - sym: method
+          - DECL: class TestClass is Test::BaseClass does Test::RoleTestClass;
+            - sym: class
+            - package_def: TestClass is Test::BaseClass does Test::RoleTestClass;
+              - trait: 2 matches
+                - trait_mod: is Test::BaseClass 
+                  - longname: Test::BaseClass
+                    - name: Test::BaseClass
+                      - identifier: Test
+                      - morename: 1 matches
+                        - identifier: BaseClass
+                    - colonpair:  isa NQPArray
+                  - circumfix:  isa NQPArray
+                  - sym: is
+                - trait_mod: does Test::RoleTestClass
+                  - typename: Test::RoleTestClass
+                    - longname: Test::RoleTestClass
+                      - name: Test::RoleTestClass
+                        - morename: 1 matches
+                          - identifier: RoleTestClass
+                        - identifier: Test
+                      - colonpair:  isa NQPArray
+                    - colonpair:  isa NQPArray
+                  - sym: does
+              - longname: TestClass
+                - name: TestClass
+                  - morename:  isa NQPArray
+                  - identifier: TestClass
+                - colonpair:  isa NQPArray
+              - statementlist: 
+                - statement: 9 matches
+                  - EXPR: has $.attribute
+                    - scope_declarator: has $.attribute
+                      - sym: has
+                      - scoped:  $.attribute
+                        - typename:  isa NQPArray
+                        - DECL: $.attribute
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute
+                            - postcircumfix:  isa NQPArray
+                            - variable: $.attribute
+                              - sigil: $
+                              - twigil: .
+                                - sym: .
+                              - desigilname: attribute
+                                - longname: attribute
+                                  - colonpair:  isa NQPArray
+                                  - name: attribute
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute
+                            - trait:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - declarator: $.attribute
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute
+                            - postcircumfix:  isa NQPArray
+                            - variable: $.attribute
+                              - sigil: $
+                              - twigil: .
+                                - sym: .
+                              - desigilname: attribute
+                                - longname: attribute
+                                  - colonpair:  isa NQPArray
+                                  - name: attribute
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute
+                            - trait:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - signature:  isa NQPArray
+                  - EXPR: has Int $.attribute_int
+                    - scope_declarator: has Int $.attribute_int
+                      - scoped:  Int $.attribute_int
+                        - multi_declarator: $.attribute_int
+                          - declarator: $.attribute_int
+                            - trait:  isa NQPArray
+                            - variable_declarator: $.attribute_int
+                              - variable: $.attribute_int
+                                - sigil: $
+                                - desigilname: attribute_int
+                                  - longname: attribute_int
+                                    - name: attribute_int
+                                      - identifier: attribute_int
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                        - DECL: $.attribute_int
+                          - declarator: $.attribute_int
+                            - trait:  isa NQPArray
+                            - variable_declarator: $.attribute_int
+                              - variable: $.attribute_int
+                                - sigil: $
+                                - desigilname: attribute_int
+                                  - longname: attribute_int
+                                    - name: attribute_int
+                                      - identifier: attribute_int
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Int
+                            - colonpair:  isa NQPArray
+                            - name: Int
+                              - morename:  isa NQPArray
+                              - identifier: Int
+                      - sym: has
+                  - EXPR: has $.attribute_rw is rw
+                    - scope_declarator: has $.attribute_rw is rw
+                      - scoped:  $.attribute_rw is rw
+                        - DECL: $.attribute_rw is rw
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute_rw is rw
+                            - postcircumfix:  isa NQPArray
+                            - trait: 1 matches
+                              - trait_mod: is rw
+                                - sym: is
+                                - longname: rw
+                                  - colonpair:  isa NQPArray
+                                  - name: rw
+                                    - morename:  isa NQPArray
+                                    - identifier: rw
+                                - circumfix:  isa NQPArray
+                            - variable: $.attribute_rw
+                              - twigil: .
+                                - sym: .
+                              - sigil: $
+                              - desigilname: attribute_rw
+                                - longname: attribute_rw
+                                  - name: attribute_rw
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute_rw
+                                  - colonpair:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - declarator: $.attribute_rw is rw
+                          - trait:  isa NQPArray
+                          - variable_declarator: $.attribute_rw is rw
+                            - postcircumfix:  isa NQPArray
+                            - trait: 1 matches
+                              - trait_mod: is rw
+                                - sym: is
+                                - longname: rw
+                                  - colonpair:  isa NQPArray
+                                  - name: rw
+                                    - morename:  isa NQPArray
+                                    - identifier: rw
+                                - circumfix:  isa NQPArray
+                            - variable: $.attribute_rw
+                              - twigil: .
+                                - sym: .
+                              - sigil: $
+                              - desigilname: attribute_rw
+                                - longname: attribute_rw
+                                  - name: attribute_rw
+                                    - morename:  isa NQPArray
+                                    - identifier: attribute_rw
+                                  - colonpair:  isa NQPArray
+                            - post_constraint:  isa NQPArray
+                            - semilist:  isa NQPArray
+                            - signature:  isa NQPArray
+                        - typename:  isa NQPArray
+                      - sym: has
+                  - EXPR: has Int $.attribute_type_rw
+                    - scope_declarator: has Int $.attribute_type_rw
+                      - scoped:  Int $.attribute_type_rw
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Int
+                            - name: Int
+                              - identifier: Int
+                              - morename:  isa NQPArray
+                            - colonpair:  isa NQPArray
+                        - DECL: $.attribute_type_rw
+                          - declarator: $.attribute_type_rw
+                            - variable_declarator: $.attribute_type_rw
+                              - signature:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - variable: $.attribute_type_rw
+                                - desigilname: attribute_type_rw
+                                  - longname: attribute_type_rw
+                                    - name: attribute_type_rw
+                                      - morename:  isa NQPArray
+                                      - identifier: attribute_type_rw
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                                - sigil: $
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                            - trait:  isa NQPArray
+                        - multi_declarator: $.attribute_type_rw
+                          - declarator: $.attribute_type_rw
+                            - variable_declarator: $.attribute_type_rw
+                              - signature:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - variable: $.attribute_type_rw
+                                - desigilname: attribute_type_rw
+                                  - longname: attribute_type_rw
+                                    - name: attribute_type_rw
+                                      - morename:  isa NQPArray
+                                      - identifier: attribute_type_rw
+                                    - colonpair:  isa NQPArray
+                                - twigil: .
+                                  - sym: .
+                                - sigil: $
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                            - trait:  isa NQPArray
+                      - sym: has
+                  - EXPR: has Array @.attribute_array
+                    - scope_declarator: has Array @.attribute_array
+                      - sym: has
+                      - scoped:  Array @.attribute_array
+                        - typename: 1 matches
+                          - longname: Array
+                            - name: Array
+                              - identifier: Array
+                              - morename:  isa NQPArray
+                            - colonpair:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                        - multi_declarator: @.attribute_array
+                          - declarator: @.attribute_array
+                            - trait:  isa NQPArray
+                            - variable_declarator: @.attribute_array
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - variable: @.attribute_array
+                                - twigil: .
+                                  - sym: .
+                                - desigilname: attribute_array
+                                  - longname: attribute_array
+                                    - name: attribute_array
+                                      - identifier: attribute_array
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - sigil: @
+                        - DECL: @.attribute_array
+                          - declarator: @.attribute_array
+                            - trait:  isa NQPArray
+                            - variable_declarator: @.attribute_array
+                              - semilist:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - variable: @.attribute_array
+                                - twigil: .
+                                  - sym: .
+                                - desigilname: attribute_array
+                                  - longname: attribute_array
+                                    - name: attribute_array
+                                      - identifier: attribute_array
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                                - sigil: @
+                  - EXPR: has Hash %!attribute_hash_ro
+                    - scope_declarator: has Hash %!attribute_hash_ro
+                      - scoped:  Hash %!attribute_hash_ro
+                        - multi_declarator: %!attribute_hash_ro
+                          - declarator: %!attribute_hash_ro
+                            - variable_declarator: %!attribute_hash_ro
+                              - trait:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - variable: %!attribute_hash_ro
+                                - twigil: !
+                                  - sym: !
+                                - sigil: %
+                                - desigilname: attribute_hash_ro
+                                  - longname: attribute_hash_ro
+                                    - name: attribute_hash_ro
+                                      - identifier: attribute_hash_ro
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                            - trait:  isa NQPArray
+                        - typename: 1 matches
+                          - colonpair:  isa NQPArray
+                          - longname: Hash
+                            - colonpair:  isa NQPArray
+                            - name: Hash
+                              - morename:  isa NQPArray
+                              - identifier: Hash
+                        - DECL: %!attribute_hash_ro
+                          - declarator: %!attribute_hash_ro
+                            - variable_declarator: %!attribute_hash_ro
+                              - trait:  isa NQPArray
+                              - semilist:  isa NQPArray
+                              - postcircumfix:  isa NQPArray
+                              - signature:  isa NQPArray
+                              - variable: %!attribute_hash_ro
+                                - twigil: !
+                                  - sym: !
+                                - sigil: %
+                                - desigilname: attribute_hash_ro
+                                  - longname: attribute_hash_ro
+                                    - name: attribute_hash_ro
+                                      - identifier: attribute_hash_ro
+                                      - morename:  isa NQPArray
+                                    - colonpair:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                            - trait:  isa NQPArray
+                      - sym: has
+                  - EXPR: method normal_method() {}
+
+                    - routine_declarator: method normal_method() {}
+
+                      - method_def:  normal_method() {}
+
+                        - longname: normal_method
+                          - colonpair:  isa NQPArray
+                          - name: normal_method
+                            - identifier: normal_method
+                            - morename:  isa NQPArray
+                        - specials: 
+                        - blockoid: {}
+                          - statementlist: 
+                            - statement:  isa NQPArray
+                        - multisig: 
+                          - signature: 
+                            - parameter:  isa NQPArray
+                            - param_sep:  isa NQPArray
+                        - trait:  isa NQPArray
+                      - sym: method
+                  - EXPR: method one_param_method($one) {
+                    - routine_declarator: method one_param_method($one) {
+                      - sym: method
+                      - method_def:  one_param_method($one) {
+                        - multisig: $one
+                          - signature: $one
+                            - param_sep:  isa NQPArray
+                            - parameter: 1 matches
+                              - modifier:  isa NQPArray
+                              - default_value:  isa NQPArray
+                              - trait:  isa NQPArray
+                              - post_constraint:  isa NQPArray
+                              - type_constraint:  isa NQPArray
+                              - param_var: $one
+                                - declname: $one
+                                - name: one
+                                - sigil: $
+                              - quant: 
+                        - specials: 
+                        - blockoid: {
+                          - statementlist: 
+                            - statement: 1 matches
+                              - EXPR: say $one
+                                - args:  $one
+                                  - arglist: $one
+                                    - EXPR: $one
+                                      - variable: $one
+                                        - sigil: $
+                                        - desigilname: one
+                                          - longname: one
+                                            - colonpair:  isa NQPArray
+                                            - name: one
+                                              - morename:  isa NQPArray
+                                              - identifier: one
+                                - longname: say
+                                  - colonpair:  isa NQPArray
+                                  - name: say
+                                    - identifier: say
+                                    - morename:  isa NQPArray
+                        - trait:  isa NQPArray
+                        - longname: one_param_method
+                          - name: one_param_method
+                            - identifier: one_param_method
+                            - morename:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                  - EXPR: method hello() {
+                    - routine_declarator: method hello() {
+                      - method_def:  hello() {
+                        - longname: hello
+                          - name: hello
+                            - identifier: hello
+                            - morename:  isa NQPArray
+                          - colonpair:  isa NQPArray
+                        - multisig: 
+                          - signature: 
+                            - parameter:  isa NQPArray
+                            - param_sep:  isa NQPArray
+                        - blockoid: {
+                          - statementlist: 
+                            - statement: 1 matches
+                              - EXPR: say 'hello'
+                                - args:  'hello'
+                                  - arglist: 'hello'
+                                    - EXPR: 'hello'
+                                      - value: 'hello'
+                                        - quote: 'hello'
+                                          - nibble: hello
+                                - longname: say
+                                  - colonpair:  isa NQPArray
+                                  - name: say
+                                    - identifier: say
+                                    - morename:  isa NQPArray
+                        - specials: 
+                        - trait:  isa NQPArray
+                      - sym: method
+          - typename:  isa NQPArray

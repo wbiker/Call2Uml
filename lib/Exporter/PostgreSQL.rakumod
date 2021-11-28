@@ -1,4 +1,5 @@
 use Red;
+use Logger;
 
 use RakuClass;
 
@@ -12,11 +13,19 @@ model Systems {
     has Str $.name is column
 }
 
+model Packages {
+    has Int $.id is serial;
+    has Int $.system_id is referencing(*.id, :model(Systems));
+    has Str $.name is column;
+    has Int $.sort_id is column;
+}
+
 model Modules {
     has Int $.id is serial;
     has Int $.system_id is referencing(*.id, :model(Systems));
     has Str $.namespace is column;
     has Bool $.is_class is column;
+    has Int $.package_id is referencing(*.id, :model(Packages));
 }
 
 model ModuleConsumes {
@@ -50,14 +59,15 @@ model Subs {
     has Bool $.is_method is column;
 }
 
-# red-defaults "Pg", :host("/var/run/postgresql"), :dbname('code_analysis_wb');
-
 class Exporter::PostgreSQL {
+    has %.packages is required;
+    has $!log = Logger.get;
+
     has %classes_already_inserted;
+    has %packages_already_inserted;
     has %classes_by_name;
 
     method save(%classes) {
-
         my $system = Systems.^create(name => 'MeinAtikon');
         %!classes_by_name = %classes<classes>.flat.map({ $_.name => $_ });
 
@@ -69,7 +79,8 @@ class Exporter::PostgreSQL {
     method save-module(RakuClass $class, $system) {
         next if %classes_already_inserted{$class.name}:exists;
 
-        my $module = Modules.^create(system_id => $system.id, namespace => $class.name, is_class => !$class.is-role);
+        my $package = self.save-package($class, $system.id);
+        my $module = Modules.^create(system_id => $system.id, namespace => $class.name, is_class => !$class.is-role, package_id => $package.id);
 
         for $class.inheritances.flat -> $parent_name {
             if %classes_already_inserted{$parent_name}:exists {
@@ -107,5 +118,34 @@ class Exporter::PostgreSQL {
         %classes_already_inserted{$class.name} = $module;
 
         return $module;
+    }
+
+    method save-package($class, $system_id) {
+        state $sort_id = 1;
+
+        for %!packages<MeinAtikon>.flat -> $package_info {
+            my $name = $package_info<name>;
+            my $matcher = $package_info<matcher>;
+            if $class.name ~~ /<$matcher>/ {
+                $!log.debug("save-package: Found package for {$class.name}");
+                if %packages_already_inserted{$package_info<name>}:exists {
+                    return %packages_already_inserted{$name};
+                }
+
+                my $package = Packages.^create(name => $name, system_id => $system_id, sort_id => $sort_id);
+                ++$sort_id;
+                %packages_already_inserted{$name} = $package;
+                return $package;
+            }
+        }
+
+        if %packages_already_inserted<default>:exists {
+            return %packages_already_inserted<default>;
+        }
+
+        my $default_package = Packages.^create(name => 'default', system_id => $system_id, sort_id => $sort_id);
+        ++$sort_id;
+        %packages_already_inserted<default> = $default_package;
+        return $default_package;
     }
 }

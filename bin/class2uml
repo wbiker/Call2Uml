@@ -1,6 +1,6 @@
 #!/usr/bin/env raku
 use Logger;
-use Red;
+use Red:api<2>;
 use Cro::WebApp::Template;
 use lib './lib';
 
@@ -12,7 +12,33 @@ use RelationshipBuilder;
 use RakuClass;
 
 # my $*RED-DEBUG = True;
-red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
+# red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
+red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
+
+my %packages_postgresql = %(
+    MeinAtikon => [
+        {
+            name => 'Route',
+            matcher => regex {'Route'},
+        },
+        {
+            name => 'Businesslogic',
+            matcher => regex {'Businesslogic'},
+        },
+        {
+            name => 'Model',
+            matcher => regex {'Model'},
+        },
+        {
+            name => 'View',
+            matcher => regex {'View'},
+        },
+        {
+            name => 'Test',
+            matcher => regex {'Test'},
+        },
+    ]
+);
 
 my %*SUB-MAIN-OPTS =
   :named-anywhere,    # allow named parameters after positional ones
@@ -96,7 +122,7 @@ sub get-exporter($type, $file) {
         }
         $exporter = Exporter::Pod.new(file-path => $file_path.IO);
     } elsif $type eq 'postgresql' {
-        $exporter = Exporter::PostgreSQL.new;
+        $exporter = Exporter::PostgreSQL.new(packages => %packages_postgresql);
     } else {
         die "No Exporter for '$type' found";
     }

@@ -5,7 +5,8 @@ use lib './lib';
 use Exporter::PostgreSQL;
 
 my $*RED-DEBUG = True;
-red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
+red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
+# red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
 
 subtest 'get-classes', {
     my $cut = Exporter::PostgreSQL.new;
