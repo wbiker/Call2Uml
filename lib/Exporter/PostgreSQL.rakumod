@@ -127,7 +127,6 @@ class Exporter::PostgreSQL {
             my $name = $package_info<name>;
             my $matcher = $package_info<matcher>;
             if $class.name ~~ /<$matcher>/ {
-                $!log.debug("save-package: Found package for {$class.name}");
                 if %packages_already_inserted{$package_info<name>}:exists {
                     return %packages_already_inserted{$name};
                 }
@@ -139,6 +138,7 @@ class Exporter::PostgreSQL {
             }
         }
 
+        $!log.debug("save-package: No package for {$class.name}");
         if %packages_already_inserted<default>:exists {
             return %packages_already_inserted<default>;
         }
