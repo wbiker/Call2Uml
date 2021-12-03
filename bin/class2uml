@@ -50,7 +50,7 @@ Logger.add($log);
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = 'graphviz', :$file = './classes', Bool :$debug=False) {
+multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = 'postgresql', :$file = './classes', Bool :$debug=False) {
     $log.level = Logger::DEBUG if $debug;
     my @pathes;
     for @path -> $item {

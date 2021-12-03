@@ -77,7 +77,7 @@ class Exporter::PostgreSQL {
     }
 
     method save-module(RakuClass $class, $system) {
-        next if %classes_already_inserted{$class.name}:exists;
+        return %classes_already_inserted{$class.name} if %classes_already_inserted{$class.name}:exists;
 
         my $package = self.save-package($class, $system.id);
         my $module = Modules.^create(system_id => $system.id, namespace => $class.name, is_class => !$class.is-role, package_id => $package.id);
