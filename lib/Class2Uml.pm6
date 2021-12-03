@@ -28,9 +28,10 @@ method parse(IO::Path $file) {
     my $methods = Grammar::Methods.subparse($file_content, :actions(Action::Methods.new)).made;
     $class.methods = $methods.flat if $methods;
 
-    if $log.is-debug {
-        $log.debug($class.raku);
-    }
+    my $dependencies = Grammar::Dependencies.subparse($file_content, :actions(Action::Dependencies.new)).made;
+    $class.dependencies = $dependencies.flat if $dependencies;
+
+    $log.debug($class.raku);
 
     return $class;
 }

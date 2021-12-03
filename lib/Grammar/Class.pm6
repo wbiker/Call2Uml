@@ -65,6 +65,14 @@ grammar Grammar::Dependencies {
     token name { <-[\s;]>+ }
 }
 
+class Action::Dependencies {
+    method TOP($/) { make [ $<dependency>>>.made ] }
+
+    method dependency($/) {
+        make $<name>.Str;
+    }
+}
+
 grammar Grammar::Attributes {
     regex TOP { <attribute>* }
 

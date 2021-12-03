@@ -107,6 +107,16 @@ class Exporter::PostgreSQL {
             }
         }
 
+        for $class.dependencies.flat -> $dependency {
+            my $class = %!classes_by_name{$dependency};
+            if $class {
+                my $parent_module_db = self.save-module($class, $system);
+                ModuleConsumes.^create(module_id => $module.id, consumes_id => $parent_module_db.id, consume_type => 'use');
+            } else {
+                ModuleConsumesExternals.^create(module_id => $module.id, external_namespace => $dependency, consume_type => 'use', visible => True);
+            }
+        }
+
         for $class.attributes.flat -> $attribute {
             Attributes.^create(module_id => $module.id, name => $attribute<name>);
         }
