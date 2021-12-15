@@ -1,3 +1,7 @@
+use Logger;
+
+my $log = Logger.get;
+
 grammar Grammar::ClassName {
     regex TOP { .*? <unit>? <class_tag> <name> <inheritance>* <implement>* .* }
 
@@ -27,18 +31,27 @@ class Action::ClassName {
 
     method name($/) {
         my $name = $/.Str.trim;
-        $name .= subst(/ '[' <-[\]]> + ']' /, '');
+        $log.debug("Name regex: '$name'");
+        $name .= subst(/ '[' .* /, '');
+        $log.debug("Name regex: '$name'");
 
         make $name;
     }
 
     method inheritance($/) {
-        make $<name>.Str.trim;
+        my $name = $<name>.Str.trim;
+        $log.debug("Inheritance regex: '$name'");
+        $name .= subst(/'[' .* /, '');
+        $log.debug("Inheritance regex: '$name'");
+
+        make $name;
     }
 
     method implement($/) {
         my $name = $<name>.Str.trim;
-        $name .= subst(/'[' <-[\]]>+ ']'/, '');
+        $log.debug("Implements regex: '$name'");
+        $name .= subst(/'[' .* /, '');
+        $log.debug("Implements regex: '$name'");
 
         make $name;
     }
@@ -50,6 +63,14 @@ grammar Grammar::Dependencies {
     token dependency { .*? <keyword> \s+ <name> <-[\n]>+ \n }
     token keyword {[ 'use' | 'need' ] }
     token name { <-[\s;]>+ }
+}
+
+class Action::Dependencies {
+    method TOP($/) { make [ $<dependency>>>.made ] }
+
+    method dependency($/) {
+        make $<name>.Str;
+    }
 }
 
 grammar Grammar::Attributes {

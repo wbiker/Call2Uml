@@ -12,8 +12,8 @@ use RelationshipBuilder;
 use RakuClass;
 
 # my $*RED-DEBUG = True;
-# red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
-red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
+red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
+# red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
 
 my %packages_postgresql = %(
     MeinAtikon => [
@@ -22,8 +22,8 @@ my %packages_postgresql = %(
             matcher => regex {'Route'},
         },
         {
-            name => 'Businesslogic',
-            matcher => regex {'Businesslogic'},
+            name => 'BusinessLogic',
+            matcher => regex {'BusinessLogic'},
         },
         {
             name => 'Model',
@@ -50,12 +50,13 @@ Logger.add($log);
 my $class2uml = Class2Uml.new;
 my RelationshipBuilder $relationshipBuilder .= new;
 
-multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = 'graphviz', :$file = './classes', Bool :$debug=False) {
+multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = 'postgresql', :$file = './classes', Bool :$debug=False) {
     $log.level = Logger::DEBUG if $debug;
     my @pathes;
     for @path -> $item {
        my $item_path = $item.IO;
        if $item_path.d {
+           $log.info("Look for Raku classes");
            @pathes.append: search-classes($item_path);
        }
        elsif $item_path.f {
@@ -64,13 +65,17 @@ multi sub MAIN(*@path, :$export where * ~~ /'pod'|'graphviz' | 'postgresql'/ = '
     }
 
     my %classes;
+    $log.info("Parse {@pathes.elems} classes");
     my @class_data = parse-classes(@pathes);
     return unless @class_data.elems > 0;
     %classes<classes> = @class_data;
+    $log.info("Get relations");
     %classes = $relationshipBuilder.get-relationships(%classes) unless @pathes.elems == 1;
 
     my $exporter = get-exporter($export, $file);
+    $log.info("Export...");
     $exporter.save(%classes);
+    $log.info("Done");
 }
 
 sub search-classes($dir) {
