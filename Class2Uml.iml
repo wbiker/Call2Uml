@@ -196,5 +196,14 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Logger" type="perl6">
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="raku://-478141337:Logger!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

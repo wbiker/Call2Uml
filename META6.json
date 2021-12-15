@@ -1,33 +1,32 @@
 {
   "name": "Class2Uml",
+  "description": "Create UML diagrams from Raku classes",
   "version": "0.1",
   "perl": "6.*",
-  "auth": "Write me!",
   "authors": [
     "wbiker@gmx.at"
   ],
+  "auth": "Write me!",
   "depends": [
     "Cro::WebApp",
     "File::Temp",
     "Logger"
   ],
-  "description": "Create UML diagrams from Raku classes",
-  "license": "Artistic-2.0",
+  "test-depends": [],
   "provides": {
-    "Class2Uml": "lib/Class2Uml.pm6",
-    "Exporter::Graphviz": "lib/Exporter/Graphviz.pm6",
-    "Exporter::Pod": "lib/Exporter/Pod.pm6",
-    "Grammar::Class": "lib/Grammar/Class.pm6",
-    "RakuClass": "lib/RakuClass.pm6",
-    "RelationshipBuilder": "lib/RelationshipBuilder.pm6"
+    "Class2Uml": "lib/Class2Uml.rakumod",
+    "Exporter::Graphviz": "lib/Exporter/Graphviz.rakumod",
+    "Exporter::Pod": "lib/Exporter/Pod.rakumod",
+    "Grammar::Class": "lib/Grammar/Class.rakumod",
+    "Grammar::Parse": "lib/Grammar/Parse.rakumod",
+    "RakuClass": "lib/RakuClass.rakumod",
+    "RelationshipBuilder": "lib/RelationshipBuilder.rakumod"
   },
   "resources": [
     "ClassDiagram.crotmp",
     "GraphvizDiagram.crotmp"
   ],
-  "source-url": "https://github.com/wbiker/Call2Uml",
-  "tags": [
-  ],
-  "test-depends": [
-  ]
+  "license": "Artistic-2.0",
+  "tags": [],
+  "source-url": "https://github.com/wbiker/Call2Uml"
 }
