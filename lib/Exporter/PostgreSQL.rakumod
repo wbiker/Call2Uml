@@ -24,7 +24,7 @@ model Modules {
     has Int $.id is serial;
     has Int $.system_id is referencing(*.id, :model(Systems));
     has Str $.namespace is column;
-    has Bool $.is_class is column;
+    has $.module_type is column;
     has Int $.package_id is referencing(*.id, :model(Packages));
 }
 
@@ -79,8 +79,9 @@ class Exporter::PostgreSQL {
     method save-module(RakuClass $class, $system) {
         return %classes_already_inserted{$class.name} if %classes_already_inserted{$class.name}:exists;
 
+        my $type = $class.is-role ?? 'role' !! 'class';
         my $package = self.save-package($class, $system.id);
-        my $module = Modules.^create(system_id => $system.id, namespace => $class.name, is_class => !$class.is-role, package_id => $package.id);
+        my $module = Modules.^create(system_id => $system.id, namespace => $class.name, module_type => $type, package_id => $package.id);
 
         for $class.inheritances.flat -> $parent_name {
             if %classes_already_inserted{$parent_name}:exists {
