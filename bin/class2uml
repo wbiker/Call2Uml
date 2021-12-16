@@ -12,8 +12,8 @@ use RelationshipBuilder;
 use RakuClass;
 
 # my $*RED-DEBUG = True;
-red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
-# red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
+#red-defaults "Pg", :dbname("code_analysis_wb"), :host('/var/run/postgresql');
+red-defaults "Pg", :dbname("code_analysis_wb"), :host('server'), :user('postgres'), :password('nordpol');
 
 my %packages_postgresql = %(
     MeinAtikon => [
