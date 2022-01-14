@@ -51,7 +51,9 @@ model Attributes {
     has Int $.module_id is referencing(*.id, :model<Modules>);
     has Str $.name is column;
     has Str $.isa is column;
-    has Int $.creates_id is referencing(*.id, :model<Modules>);
+    has Bool $.required is column;
+    has Str $.access is column;
+    has Int $.references_id is referencing(*.id, :model<Modules>);
 }
 
 model Subs {
@@ -67,7 +69,7 @@ model SubParameters {
     has Str $.name is column;
 }
 
-model SubCreates {
+model SubReferences {
     has Int $.id is serial;
     has Int $.sub_id is referencing(*.id, :model<Subs>);
     has Int $.module_id is referencing(*.id, :model<Models>);
@@ -82,7 +84,9 @@ class Exporter::PostgreSQL {
     has %classes_by_name;
 
     method save(%classes) {
-        my $system = Systems.^create(name => 'MeinAtikon');
+        my $system = Systems.^all.grep(*.name.contains('MeinAtikon')).first;
+        $system = Systems.^create(name => 'MeinAtikon') unless $system;
+
         %!classes_by_name = %classes<classes>.flat.map({ $_.name => $_ });
 
         for %classes<classes>.flat -> $class {
